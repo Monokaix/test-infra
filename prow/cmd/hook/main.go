@@ -18,12 +18,14 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"net/http"
 	"os"
 	"strconv"
 	"time"
 
 	"github.com/sirupsen/logrus"
+
 	"k8s.io/test-infra/prow/bugzilla"
 	"k8s.io/test-infra/prow/interrupts"
 
@@ -92,6 +94,8 @@ func gatherOptions(fs *flag.FlagSet, args ...string) options {
 
 func main() {
 	logrusutil.ComponentInit("hook")
+	logrus.SetLevel(logrus.TraceLevel)
+	fmt.Println("here....")
 
 	o := gatherOptions(flag.NewFlagSet(os.Args[0], flag.ExitOnError), os.Args[1:]...)
 	if err := o.Validate(); err != nil {
